@@ -8,7 +8,19 @@ register_matplotlib_converters()
 df = pd.read_csv('fcc-forum-pageviews.csv', index_col = 'date')
 
 # Clean data
-df = None
+minimo = df['value'].min()
+maximo = df['value'].max()
+
+# O sea, hay que dejar todos los datos que estén sobre el 2.5% del mínimo, y bajo el 2.5% del maximo
+valor_minimo = minimo + (minimo * 0.025)
+valor_maximo = maximo - (maximo * 0.025)
+
+mask_minimo = df['value'] > (valor_minimo)
+mask_maximo = df['value'] < (valor_maximo)
+
+mask_total = (mask_minimo) & (mask_maximo)
+
+df = df[mask_total]
 
 
 def draw_line_plot():
