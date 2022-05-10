@@ -74,9 +74,13 @@ def draw_bar_plot():
     averages = pd.DataFrame(averages)
 
     # Draw bar plot
-    
+    meses = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August',
+                   'September', 'October', 'November', 'December']
+
     fig, axis = plt.subplots(figsize = (12, 6))
-    sns.catplot(data = averages, kind = 'bar', x = 'Years', y = 'Average per month', hue = 'Months')
+    g = sns.barplot(data = averages, x = 'Years', y = 'Average per month', hue = 'Months', ax = axis)
+    g.set(xlabel = 'Years', ylabel = 'Average Page Views')
+    g.legend(meses)
 
     # Save image and return fig (don't change this part)
     fig.savefig('bar_plot.png')
